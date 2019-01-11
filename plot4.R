@@ -10,12 +10,14 @@ energy_data <- read.table("./household_power_consumption.txt", sep = ";", header
 # and February 2, 2007
 
 library(lubridate)
-
 energy_data$DateTime <- strptime(paste(as.character(energy_data$Date), as.character(energy_data$Time)),
                                  format = "%d/%m/%Y %H:%M:%S")
 data <- energy_data[(months(energy_data$DateTime) == "February")
                     & (year(energy_data$DateTime) == 2007),]
 data <- data[((day(data$DateTime) == 01) | (day(data$DateTime) == 02)),]
+data$Sub_metering_1 <- as.numeric(as.character(data$Sub_metering_1))
+data$Sub_metering_2 <- as.numeric(as.character(data$Sub_metering_2))
+data$Sub_metering_3 <- as.numeric(as.character(data$Sub_metering_3))
 
 # Plot 4
 
